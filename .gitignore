@@ -1,29 +1,18 @@
-# Compiled Object files
-*.slo
-*.lo
-*.o
-*.obj
+# exclude all
+*.*
 
-# Precompiled Headers
-*.gch
-*.pch
+# add sources
+!*.cc
+!*.cpp
+!*.h
+!*.hpp
 
-# Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
+# add cmake files
+!CmakeLists.txt
 
-# Fortran module files
-*.mod
-*.smod
+# add files in root
+!/.gitignore
+!/Readme.md
 
-# Compiled Static libraries
-*.lai
-*.la
-*.a
-*.lib
-
-# Executables
-*.exe
-*.out
-*.app
+# add resources
+!*.hlsl
