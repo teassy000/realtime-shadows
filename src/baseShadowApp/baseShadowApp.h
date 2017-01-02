@@ -9,16 +9,19 @@
 #include <windows.h>
 #include <iostream>
 
+#include "D3DClass.h"
+
 
 class BaseShadowApp
 {
 private:
 	// window stuffs
-	HWND hwnd_{nullptr};
-	HINSTANCE hInstance_{nullptr};
-	std::string windowName_{ "default window name" };
+	HWND				hwnd_{ nullptr };
+	HINSTANCE			hInstance_{ nullptr };
+	std::string			windowName_{ "default window name" };
 
 	// direct3d stuff
+	D3DClass*			d3dclass_{ nullptr };
 
 	// camera
 
