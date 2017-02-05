@@ -50,6 +50,7 @@ bool D3DClass::init(HWND hwnd)
 			1,								// num of feature level
 			D3D11_SDK_VERSION,				// SDK version 
 			&scd,							// swap chain desc;
+			&swapChain,						// swap chain
 			&device,						// D3D device
 			NULL,							// out feature level
 			&context);						// device context
