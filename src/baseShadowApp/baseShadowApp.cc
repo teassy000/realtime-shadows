@@ -2,8 +2,6 @@
 
 #include <cassert>
 
-#include "rtsp_utils.h"
-
 //-----------------------------------------------------
 BaseShadowApp::BaseShadowApp(HINSTANCE hinstance, std::string windowName)
 	: hInstance_(hinstance)
@@ -28,17 +26,8 @@ bool BaseShadowApp::init()
 	}
 
 	{
-		try
-		{
-			d3dclass_ = new D3DClass();
-		}
-		catch (const std::bad_alloc&)
-		{
-			assert(0);
-			return false;
-		}
 
-		bool res = d3dclass_->init(hwnd_);
+		bool res = d3dclass_.init(hwnd_);
 		assert(res);
 		if (!res)
 			return false;
@@ -119,13 +108,13 @@ bool BaseShadowApp::initWindow()
 //-----------------------------------------------------
 void BaseShadowApp::render()
 {
-	d3dclass_->render();
+	d3dclass_.render();
 }
 
 //-----------------------------------------------------
 void BaseShadowApp::release()
 {
-	rts_safeDelete(d3dclass_);
+	d3dclass_.release();
 }
 
 //-----------------------------------------------------

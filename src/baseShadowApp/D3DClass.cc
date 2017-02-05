@@ -2,9 +2,6 @@
 
 #include <DirectXMath.h>
 
-#include "rtsp_utils.h"
-
-
 #pragma comment (lib, "d3d11.lib")
 
 //---------------------------------------
@@ -40,6 +37,9 @@ bool D3DClass::init(HWND hwnd)
 
 		const D3D_FEATURE_LEVEL featureLevel = D3D_FEATURE_LEVEL_11_0;
 
+		IDXGISwapChain* swapChain;
+		ID3D11Device* device;
+		ID3D11DeviceContext* context;
 		// create a device, device context and swap chain using the information in the scd struct
 		hr = D3D11CreateDeviceAndSwapChain(
 			NULL,							// adapter		
@@ -50,28 +50,33 @@ bool D3DClass::init(HWND hwnd)
 			1,								// num of feature level
 			D3D11_SDK_VERSION,				// SDK version 
 			&scd,							// swap chain desc;
-			&swapchain_,					// swap chain
-			&device_,						// D3D device
+			&device,						// D3D device
 			NULL,							// out feature level
-			&context_);						// device context
+			&context);						// device context
 
 		if (FAILED(hr))
 			return false;
+
+		swapChain_.reset(swapChain);
+		device_.reset(device);
+		context_.reset(context);
 	}
 
 	// setting render target
 	{
 		ID3D11Texture2D *bkbuffer;
-		hr = swapchain_->GetBuffer(0, __uuidof(ID3D11Texture2D), (LPVOID*)&bkbuffer);
+		ID3D11RenderTargetView* rtv;
+		hr = swapChain_->GetBuffer(0, __uuidof(ID3D11Texture2D), (LPVOID*)&bkbuffer);
 		if (FAILED(hr))
 			return false;
 
-		hr = device_->CreateRenderTargetView(bkbuffer, NULL, &rtv_);
+		hr = device_->CreateRenderTargetView(bkbuffer, NULL, &rtv);
+		if (FAILED(hr))
+			return false;
+		rtv_.reset(rtv);
 		bkbuffer->Release();
-		if (FAILED(hr))
-			return false;
 
-		context_->OMSetRenderTargets(1, &rtv_, NULL);
+		context_->OMSetRenderTargets(1, &rtv, NULL);
 	}
 
 	// set viewport
@@ -94,19 +99,29 @@ bool D3DClass::init(HWND hwnd)
 void D3DClass::render()
 {
 	const float color[4]{ 0.0f, 0.2f, 0.4f, 1.0f };
-	context_->ClearRenderTargetView(rtv_, color);
+	context_->ClearRenderTargetView(rtv_.get(), color);
 
 	// do 3D rendering on the back buffer here
 
-	swapchain_->Present(0, 0);
+	swapChain_->Present(0, 0);
 }
 
 //---------------------------------------
 void D3DClass::release()
 {
-	rts_safeRelease(swapchain_);
-	rts_safeRelease(device_);
-	rts_safeRelease(context_);
-	rts_safeRelease(rtv_);
+
+}
+
+//---------------------------------------
+bool D3DClass::initShaders()
+{
+
+	return false;
+}
+
+//---------------------------------------
+bool D3DClass::initModel()
+{
+	return false;
 }
 

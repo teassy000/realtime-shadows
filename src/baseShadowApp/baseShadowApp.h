@@ -8,6 +8,7 @@
 
 #include <windows.h>
 #include <iostream>
+#include <memory>
 
 #include "D3DClass.h"
 
@@ -21,7 +22,7 @@ private:
 	std::string			windowName_{ "default window name" };
 
 	// direct3d stuff
-	D3DClass*			d3dclass_{ nullptr };
+	D3DClass			d3dclass_;
 
 	// camera
 
