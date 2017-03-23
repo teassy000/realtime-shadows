@@ -16,3 +16,6 @@
 
 # add resources
 !*.hlsl
+
+# add submodules config
+!.gitmodules
