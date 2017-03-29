@@ -32,7 +32,7 @@ public:
 	void render();
 	void release();
 
-private:
 	bool initShaders();
-	bool initModel();
+	bool initModel(const wchar_t* filename);
+private:
 };

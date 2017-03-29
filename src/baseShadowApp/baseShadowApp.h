@@ -19,7 +19,7 @@ private:
 	// window stuffs
 	HWND				hwnd_{ nullptr };
 	HINSTANCE			hInstance_{ nullptr };
-	std::string			windowName_{ "default window name" };
+	std::wstring			windowName_{ L"default window name" };
 
 	// direct3d stuff
 	D3DClass			d3dclass_;
@@ -29,7 +29,7 @@ private:
 	// light
 
 public:
-	BaseShadowApp(HINSTANCE, std::string);
+	BaseShadowApp(HINSTANCE, std::wstring);
 	~BaseShadowApp();
 
 	bool init();

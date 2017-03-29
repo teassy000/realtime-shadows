@@ -3,7 +3,7 @@
 #include <cassert>
 
 //-----------------------------------------------------
-BaseShadowApp::BaseShadowApp(HINSTANCE hinstance, std::string windowName)
+BaseShadowApp::BaseShadowApp(HINSTANCE hinstance, std::wstring windowName)
 	: hInstance_(hinstance)
 	, windowName_(windowName)
 {
@@ -31,6 +31,10 @@ bool BaseShadowApp::init()
 		assert(res);
 		if (!res)
 			return false;
+	}
+
+	{
+		bool res = d3dclass_.initModel(L"./res/model/MaleLow.vbo");
 	}
 
 	return true;
@@ -69,7 +73,7 @@ static LRESULT CALLBACK WindowProc(
 bool BaseShadowApp::initWindow()
 {
 	// Register the window class.
-	const char CLASS_NAME[] = "shadow app window";
+	const wchar_t CLASS_NAME[] = L"shadow app window";
 
 	WNDCLASS wc = {};
 

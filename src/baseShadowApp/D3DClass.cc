@@ -1,8 +1,13 @@
 #include "D3DClass.h"
 
 #include <DirectXMath.h>
+#include <Model.h>
+
+#include <memory>
 
 #pragma comment (lib, "d3d11.lib")
+using namespace DirectX;
+using namespace std;
 
 //---------------------------------------
 D3DClass::D3DClass()
@@ -121,8 +126,10 @@ bool D3DClass::initShaders()
 }
 
 //---------------------------------------
-bool D3DClass::initModel()
+bool D3DClass::initModel(const wchar_t* filename)
 {
-	return false;
+	auto model = Model::CreateFromVBO(device_.get(), filename);
+
+	return true;
 }
 
