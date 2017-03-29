@@ -1,2 +1,2 @@
 # realtime-shadows
-implements raeltime-shadows by using d3d11
+implements realtime-shadows by using d3d11
