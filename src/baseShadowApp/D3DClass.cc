@@ -4,6 +4,7 @@
 #include <Model.h>
 
 #include <memory>
+#include <iostream>
 
 #pragma comment (lib, "d3d11.lib")
 using namespace DirectX;
@@ -128,7 +129,16 @@ bool D3DClass::initShaders()
 //---------------------------------------
 bool D3DClass::initModel(const wchar_t* filename)
 {
-	auto model = Model::CreateFromVBO(device_.get(), filename);
+	try
+	{
+		auto model = Model::CreateFromVBO(device_.get(), filename);
+	}
+	catch (const std::exception& e)
+	{
+		std::cerr << e.what() << std::endl;
+		return false;
+	}
+
 
 	return true;
 }

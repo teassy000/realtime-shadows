@@ -2,6 +2,9 @@ set(RESOURCE_DIR ../../res)
 set(UTIL_DIR ../common)
 set(EXTERN_DIR ../../libs/external)
 
+# force set porject as unicode
+add_definitions(-DUNICODE -D_UNICODE)
+
 # add link dir
 link_directories(G:/projects/realtime-shadows/libs/external/DirectXTK/Bin/Desktop_2015/x64)
 
@@ -29,6 +32,13 @@ add_executable( baseShadowApp ${DIR_SRCS} ${VS_SHADERS} ${PS_SHADERS})
 
 # add liberarys
 target_link_libraries ( baseShadowApp DirectXTK)
+
+# set output/working diretory
+set_target_properties( baseShadowApp
+    PROPERTIES
+    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin"
+	VS_DEBUGGER_WORKING_DIRECTORY  "${CMAKE_SOURCE_DIR}"
+)
 
 # set project's subsystem to Windows
 set_target_properties( baseShadowApp PROPERTIES LINK_FLAGS "/SUBSYSTEM:WINDOWS")
