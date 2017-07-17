@@ -1,4 +1,4 @@
-# 
+# compile shaders offline
 use strict;
 use warnings;
 
