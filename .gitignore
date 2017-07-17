@@ -16,3 +16,6 @@
 
 # add resources
 !*.hlsl
+
+# add perl script
+!*.pl
